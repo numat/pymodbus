@@ -31,7 +31,6 @@ from examples.simulator import run_simulator
 from pymodbus.exceptions import ModbusException
 from pymodbus.pdu import ExceptionResponse
 from pymodbus.server import ServerAsyncStop, ServerStop
-from pymodbus.transport import NullModem
 
 
 class TestExamples:
@@ -43,10 +42,6 @@ class TestExamples:
         """Return next port"""
         base_ports[__class__.__name__] += 1
         return base_ports[__class__.__name__]
-
-    def teardown(self):
-        """Run class teardown"""
-        assert not NullModem.is_dirty()
 
     USE_CASES = [
         ("tcp", "socket"),

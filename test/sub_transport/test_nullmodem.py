@@ -16,10 +16,6 @@ class TestNullModem:
         base_ports[__class__.__name__] += 2
         return base_ports[__class__.__name__]
 
-    def teardown(self):
-        """Run class teardown"""
-        assert not NullModem.is_dirty()
-
     def test_init(self, dummy_protocol):
         """Test initialize."""
         prot = dummy_protocol()

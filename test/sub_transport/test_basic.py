@@ -34,10 +34,6 @@ class TestBasicModbusProtocol:
         base_ports[__class__.__name__] += 1
         return base_ports[__class__.__name__]
 
-    def teardown(self):
-        """Run class teardown"""
-        assert not NullModem.is_dirty()
-
     @pytest.mark.parametrize("use_host", [NULLMODEM_HOST])
     @pytest.mark.parametrize("use_comm_type", COMM_TYPES)
     async def test_init_nullmodem(self, client, server):

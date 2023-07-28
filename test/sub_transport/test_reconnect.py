@@ -4,8 +4,6 @@ from unittest import mock
 
 import pytest
 
-from pymodbus.transport import NullModem
-
 
 class TestReconnectModbusProtocol:
     """Test transport module, base part."""
@@ -16,10 +14,6 @@ class TestReconnectModbusProtocol:
         """Return next port"""
         base_ports[__class__.__name__] += 1
         return base_ports[__class__.__name__]
-
-    def teardown(self):
-        """Run class teardown"""
-        assert not NullModem.is_dirty()
 
     async def test_no_reconnect_call(self, client):
         """Test connection_lost()."""

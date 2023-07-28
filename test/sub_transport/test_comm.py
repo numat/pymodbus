@@ -9,7 +9,6 @@ from pymodbus.transport import (
     NULLMODEM_HOST,
     CommType,
     ModbusProtocol,
-    NullModem,
 )
 
 
@@ -25,10 +24,6 @@ class TestCommModbusProtocol:
         """Return next port"""
         base_ports[__class__.__name__] += 1
         return base_ports[__class__.__name__]
-
-    def teardown(self):
-        """Run class teardown"""
-        assert not NullModem.is_dirty()
 
     @pytest.mark.parametrize(
         ("use_comm_type", "use_host"),

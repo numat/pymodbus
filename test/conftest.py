@@ -5,6 +5,7 @@ from collections import deque
 import pytest
 
 from pymodbus.datastore import ModbusBaseSlaveContext
+from pymodbus.transport import NullModem
 
 
 def pytest_configure():
@@ -32,6 +33,13 @@ BASE_PORTS = {
 def get_base_ports():
     """Return base_ports"""
     return BASE_PORTS
+
+
+@pytest.fixture(name="nullmodem_check", autouse=True)
+def _check_nullmodem():
+    """Check null modem."""
+    yield
+    assert not NullModem.is_dirty()
 
 
 class MockContext(ModbusBaseSlaveContext):
