@@ -66,7 +66,7 @@ class AsyncModbusTcpClient(ModbusBaseClient, asyncio.Protocol):
         self.reset_delay()
 
         # force reconnect if required:
-        Log.debug(
+        Log.info(
             "Connecting to {}:{}.",
             self.comm_params.host,
             self.comm_params.port,
