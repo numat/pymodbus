@@ -221,7 +221,7 @@ class ModbusProtocol(asyncio.BaseProtocol):
 
     async def transport_connect(self) -> bool:
         """Handle generic connect and call on to specific transport connect."""
-        Log.debug("Connecting {}", self.comm_params.comm_name)
+        Log.info("Connecting {}", self.comm_params.comm_name)
         if not self.loop:
             self.loop = asyncio.get_running_loop()
         self.is_closing = False
@@ -241,7 +241,7 @@ class ModbusProtocol(asyncio.BaseProtocol):
 
     async def transport_listen(self) -> bool:
         """Handle generic listen and call on to specific transport listen."""
-        Log.debug("Awaiting connections {}", self.comm_params.comm_name)
+        Log.info("Awaiting connections {}", self.comm_params.comm_name)
         if not self.loop:
             self.loop = asyncio.get_running_loop()
         self.is_closing = False
@@ -263,7 +263,7 @@ class ModbusProtocol(asyncio.BaseProtocol):
 
         :param transport: socket etc. representing the connection.
         """
-        Log.debug("Connected to {}", self.comm_params.comm_name)
+        Log.info("Connected to {}", self.comm_params.comm_name)
         self.transport = transport
         self.reset_delay()
         self.callback_connected()
@@ -275,7 +275,7 @@ class ModbusProtocol(asyncio.BaseProtocol):
         """
         if not self.transport or self.is_closing:
             return
-        Log.debug("Connection lost {} due to {}", self.comm_params.comm_name, reason)
+        Log.info("Connection lost {} due to {}", self.comm_params.comm_name, reason)
         self.transport_close(intern=True)
         if not self.is_server and not self.listener:
             self.reconnect_task = asyncio.create_task(self.do_reconnect())
@@ -317,11 +317,11 @@ class ModbusProtocol(asyncio.BaseProtocol):
     # --------- #
     def callback_connected(self) -> None:
         """Call when connection is succcesfull."""
-        Log.debug("callback_connected called")
+        Log.info("callback_connected called")
 
     def callback_disconnected(self, exc: Exception) -> None:
         """Call when connection is lost."""
-        Log.debug("callback_disconnected called: {}", exc)
+        Log.info("callback_disconnected called: {}", exc)
 
     def callback_data(self, data: bytes, addr: tuple = None) -> int:
         """Handle received data."""
@@ -429,7 +429,7 @@ class ModbusProtocol(asyncio.BaseProtocol):
         try:
             self.reconnect_delay_current = self.comm_params.reconnect_delay
             while True:
-                Log.debug(
+                Log.info(
                     "Wait {} {} ms before reconnecting.",
                     self.comm_params.comm_name,
                     self.reconnect_delay_current * 1000,
