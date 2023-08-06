@@ -57,10 +57,10 @@ class Log:
             log_file_handler.setFormatter(log_formatter)
             cls._logger.addHandler(log_file_handler)
         cls.setLevel(level)
-        cls.debug("debug test")
-        cls.info("info test")
-        cls.warning("warning test")
-        cls.error("error test")
+        cls._logger.debug("debug test")
+        cls._logger.info("info test")
+        cls._logger.warning("warning test")
+        cls._logger.error("error test")
 
     @classmethod
     def setLevel(cls, level):
